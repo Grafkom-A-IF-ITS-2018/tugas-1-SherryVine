@@ -111,34 +111,48 @@
         // Triangle Position
         thirdAlphaVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, thirdAlphaVertexPositionBuffer)
+        // var vertices = [
+        //   0.0,  1.44,  0.0, //H
+        //   -0.825, -0.505, 0.0, //F
+        //   -0.43, -0.505, 0.0, //C
+        //   -0.23, 0.0, 0.0, //B
+        //   0.23, 0.0, 0.0, //E
+        //   0.43, -0.505, 0.0, //D
+        //   0.825,  -0.505, 0.0, //J
+        //   -0.21, 0.26, 0.0, //L
+        //   0.0, 0.82, 0.0, //K
+        //   0.21, 0.26, 0.0 //M
+        // ]
         var vertices = [
-          0.0,  1.44,  0.0, //H
-          -0.825, -0.505, 0.0, //F
-          -0.43, -0.505, 0.0, //C
-          -0.23, 0.0, 0.0, //B
-          0.23, 0.0, 0.0, //E
-          0.43, -0.505, 0.0, //D
-          0.825,  -0.505, 0.0, //J
-          
+          -1.0, -1.0, 0.0,
+          0.0, 1.0, 0.0,
+          1.0, -1.0, 0.0,
+          0.5, 0.0, 0.0,
+          -0.5, 0.0, 0.0
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
         thirdAlphaVertexPositionBuffer.itemSize = 3
-        thirdAlphaVertexPositionBuffer.numItems = 7
+        thirdAlphaVertexPositionBuffer.numItems = 5
         // Triangle Color
         thirdAlphaVertexColorBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, thirdAlphaVertexColorBuffer)
-        var colors = [
-          1.0, 0.0, 0.0, 1.0,
-          0.0, 1.0, 0.0, 1.0,
-          0.0, 0.0, 1.0, 1.0,
-          0.0, 0.0, 1.0, 1.0,
-          0.0, 0.0, 1.0, 1.0,
-          0.0, 0.0, 1.0, 1.0,
-          0.0, 0.0, 1.0, 1.0
-        ]
+        // var colors = [
+        //   1.0, 0.0, 0.0, 1.0,
+        //   0.0, 1.0, 0.0, 1.0,
+        //   0.0, 0.0, 1.0, 1.0,
+        //   0.0, 0.0, 1.0, 1.0,
+        //   0.0, 0.0, 1.0, 1.0,
+        //   0.0, 0.0, 1.0, 1.0,
+        //   0.0, 0.0, 1.0, 1.0,
+        //   0.0, 0.0, 1.0, 1.0
+        // ]
+        colors = []
+        for (var i=0; i <= 4; i++) {
+            colors = colors.concat([0.5, 0.5, 1.0, 1.0]);
+        }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
         thirdAlphaVertexColorBuffer.itemSize = 4
-        thirdAlphaVertexColorBuffer.numItems = 7
+        thirdAlphaVertexColorBuffer.numItems = 5
         // Square Position
         fifthAlphaVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, fifthAlphaVertexPositionBuffer)
@@ -178,7 +192,7 @@
         gl.bindBuffer(gl.ARRAY_BUFFER, thirdAlphaVertexColorBuffer)
         gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, thirdAlphaVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0)
         setMatrixUniforms()
-        gl.drawArrays(gl.TRIANGLE_FAN, 0, thirdAlphaVertexPositionBuffer.numItems)
+        gl.drawArrays(gl.LINE_LOOP, 0, thirdAlphaVertexPositionBuffer.numItems)
         mvPopMatrix()
         mat4.translate(mvMatrix, mvMatrix, [0.0, -2.5, -0.5])
         mvPushMatrix()
