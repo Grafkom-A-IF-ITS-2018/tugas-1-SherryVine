@@ -112,32 +112,41 @@
         thirdAlphaVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, thirdAlphaVertexPositionBuffer)
         var vertices = [
-          0.0,  1.0,  0.0,
-          -1.0, -1.0, 0.0,
-          1.0,  -1.0, 0.0
+          0.0,  1.44,  0.0, //H
+          -0.825, -0.505, 0.0, //F
+          -0.43, -0.505, 0.0, //C
+          -0.23, 0.0, 0.0, //B
+          0.23, 0.0, 0.0, //E
+          0.43, -0.505, 0.0, //D
+          0.825,  -0.505, 0.0, //J
+          
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
         thirdAlphaVertexPositionBuffer.itemSize = 3
-        thirdAlphaVertexPositionBuffer.numItems = 3
+        thirdAlphaVertexPositionBuffer.numItems = 7
         // Triangle Color
         thirdAlphaVertexColorBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, thirdAlphaVertexColorBuffer)
         var colors = [
           1.0, 0.0, 0.0, 1.0,
           0.0, 1.0, 0.0, 1.0,
+          0.0, 0.0, 1.0, 1.0,
+          0.0, 0.0, 1.0, 1.0,
+          0.0, 0.0, 1.0, 1.0,
+          0.0, 0.0, 1.0, 1.0,
           0.0, 0.0, 1.0, 1.0
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
         thirdAlphaVertexColorBuffer.itemSize = 4
-        thirdAlphaVertexColorBuffer.numItems = 3
+        thirdAlphaVertexColorBuffer.numItems = 7
         // Square Position
         fifthAlphaVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, fifthAlphaVertexPositionBuffer)
         vertices = [
-          1.0,  1.0,  0.0,
-          -1.0, 1.0,  0.0,
-          1.0,  -1.0, 0.0,
-          -1.0, -1.0, 0.0
+          0.25,  1.0,  0.0,
+          -0.25, 1.0,  0.0,
+          0.25,  -1.0, 0.0,
+          -0.25, -1.0, 0.0
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
         fifthAlphaVertexPositionBuffer.itemSize = 3
@@ -160,7 +169,7 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
         mat4.perspective(pMatrix, glMatrix.toRadian(45), gl.viewportWidth / gl.viewportHeight, 0.1, 100.0)
         mat4.identity(mvMatrix)
-        mat4.translate(mvMatrix, mvMatrix, [0.0, 1.5, -6.5])
+        mat4.translate(mvMatrix, mvMatrix, [0.0, 1.0, -6.5])
         mvPushMatrix()
         mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rTri), [1.0, 0.0, 0.0])
         //mat4.rotateY(mvMatrix, mvMatrix, glMatrix.toRadian(rTri))
@@ -169,9 +178,9 @@
         gl.bindBuffer(gl.ARRAY_BUFFER, thirdAlphaVertexColorBuffer)
         gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, thirdAlphaVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0)
         setMatrixUniforms()
-        gl.drawArrays(gl.TRIANGLES, 0, thirdAlphaVertexPositionBuffer.numItems)
+        gl.drawArrays(gl.TRIANGLE_FAN, 0, thirdAlphaVertexPositionBuffer.numItems)
         mvPopMatrix()
-        mat4.translate(mvMatrix, mvMatrix, [0.0, -3.0, -0.5])
+        mat4.translate(mvMatrix, mvMatrix, [0.0, -2.5, -0.5])
         mvPushMatrix()
         mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rSquare), [0.0, 1.0, 0.0])
         //mat4.rotateX(mvMatrix, mvMatrix, glMatrix.toRadian(rSquare))
